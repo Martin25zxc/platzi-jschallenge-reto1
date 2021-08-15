@@ -10,3 +10,5 @@ Se debe crear una miniapp con los siguientes requerimientos de negocio:
 - HTML
 - JS
 
+# [Demo](https://martin25zxc.github.io/platzi-jschallenge-reto1/) 
+
