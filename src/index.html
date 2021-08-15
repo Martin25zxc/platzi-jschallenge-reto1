@@ -1,0 +1,102 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Cinema vs Streaming</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto+Slab"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/style.css" />
+  </head>
+  <body>
+    <header></header>
+    <main>
+      <div class="container">
+        <h1>Cinema vs Streaming</h1>
+        <form autocomplete="off">
+          <div id="cinema">
+            <h2>Cinema</h2>
+            <div class="segment">
+              <label>Entradas</label>
+              <input
+                placeholder="Entradas de cine compradas por mes"
+                type="number"
+                min="0"
+                name="amountCinemas"
+              />
+            </div>
+            <div class="segment">
+              <label>Precio</label>
+              <input
+                placeholder="Precio de las entradas"
+                type="number"
+                step=".01"
+                min="0"
+                name="priceCinemas"
+              />
+            </div>
+          </div>
+
+          <div id="streaming">
+            <h2>Streaming</h2>
+          </div>
+
+          <div class="block segment">
+            <button id="btnCalcular" type="button">Calcular</button>
+          </div>
+
+          <div class="block segment">
+            <label>Resultado!</label>
+            <textarea name="message" rows="3" disabled></textarea>
+          </div>
+        </form>
+      </div>
+    </main>
+    <footer>
+      <p>Platzi Challenge.js 2021</p>
+    </footer>
+  </body>
+  <script src="scripts/index.js"></script>
+  <script>
+    function changeResultMessage() {
+      let amountCinemas = document.querySelector(
+        'input[name="amountCinemas"]'
+      ).value;
+
+      let priceCinemas = document.querySelector(
+        'input[name="priceCinemas"]'
+      ).value;
+
+      let arrStreaming = Array.from(
+        document.querySelectorAll(".streamingElement")
+      ).map((x) => Number(x.value));
+
+      let res = calculateBetter(amountCinemas, priceCinemas, arrStreaming);
+      let elResult = document.querySelector("textarea[name='message']");
+      elResult.value = res;
+    }
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      function () {
+        let el = document.getElementById("btnCalcular");
+        el.addEventListener("click", changeResultMessage, false);
+
+        let divStreaming = document.querySelector("#streaming");
+
+        streamingPlatforms.forEach((plataforma) => {
+          divStreaming.innerHTML += ` <div class="segment">
+              <label>${plataforma}</label>
+              <input
+                class="streamingElement"
+                type="number"
+                min="0"
+                placeholder="Precio"
+              />
+            </div>`;
+        });
+      },
+      false
+    );
+  </script>
+</html>
