@@ -15,7 +15,7 @@
       <div class="container">
         <h1>Cines vs Streaming</h1>
         <form autocomplete="off">
-          <div id="cinema">
+          <div class="segEntertainment" id="cinema">
             <h2>Cine</h2>
             <div class="segment">
               <label>Entradas</label>
@@ -38,7 +38,7 @@
             </div>
           </div>
 
-          <div id="streaming">
+          <div class="segEntertainment" id="streaming">
             <h2>Streaming</h2>
           </div>
 
@@ -46,7 +46,7 @@
             <button id="btnCalcular" type="button">Calcular</button>
           </div>
 
-          <div class="block segment">
+          <div class="block segment" id="resultado">
             <label>Resultado!</label>
             <textarea name="message" rows="3" disabled></textarea>
           </div>
@@ -54,11 +54,21 @@
       </div>
     </main>
     <footer>
-      <p>Platzi jschallenge 2021</p>
+      <p>
+        <a href="https://platzi.com/p/Martin_zxc/">Martin_zxc</a> - Platzi
+        jschallenge 2021
+      </p>
     </footer>
     <script src="src/scripts/index.js"></script>
     <script>
-      function changeResultMessage() {
+      function calculateEvent() {
+        // "Reseteo" los "titulos" de los servicio, retirando la class winner.
+        let arrElemsEnternmt = document.querySelector(".segEntertainment");
+        if (arrElemsEnternmt !== null) {
+          arrElemsEnternmt.classList.remove("winner");
+        }
+
+        // Obtengo los valores de los inputs.
         let amountCinemas = document.querySelector(
           'input[name="amountCinemas"]'
         ).value;
@@ -71,16 +81,32 @@
           document.querySelectorAll(".streamingElement")
         ).map((x) => Number(x.value));
 
+        // Valido que los valores no sean negavitvos
+        if (amountCinemas < 0 || arrStreaming.some((x) => x < 0)) {
+          alert("No se permiten ingresar números negativos");
+          return;
+        }
+
+        // Llamo al metodo "calculateBetter" de index.js, que me devuelve el resultado.
         let res = calculateBetter(amountCinemas, priceCinemas, arrStreaming);
+        // Obtengo el elemento donde se va a mostrar el resultado.
         let elResult = document.querySelector("textarea[name='message']");
-        elResult.value = res;
+        elResult.value = res.result;
+        elResult.scrollIntoView();
+
+        // Agrego la clase winner al elemento que corresponde
+        if (res.winner) {
+          let elWinner = document.querySelector(`#${res.winner}`);
+          if (elWinner) elWinner.classList.add("winner");
+        }
       }
 
       document.addEventListener(
         "DOMContentLoaded",
         function () {
+          // Agrego los eventos a los botones.
           let el = document.getElementById("btnCalcular");
-          el.addEventListener("click", changeResultMessage, false);
+          el.addEventListener("click", calculateEvent, false);
 
           let divStreaming = document.querySelector("#streaming");
 
@@ -91,6 +117,7 @@
                 class="streamingElement"
                 type="number"
                 min="0"
+                step=".01"
                 placeholder="Precio"
               />
             </div>`;

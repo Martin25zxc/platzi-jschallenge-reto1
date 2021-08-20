@@ -44,6 +44,50 @@ h2 {
   border-bottom: 1px solid #d63031;
 }
 
+.winner > h2 {
+  color: #d63031;
+  text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff,
+    0 0 42px rgb(251, 65, 65), 0 0 82px rgb(251, 65, 65),
+    0 0 92px rgb(251, 65, 65), 0 0 102px rgb(251, 65, 65),
+    0 0 151px rgb(251, 65, 65);
+  animation: flicker 1.5s infinite alternate;
+}
+
+.winner > h2:before {
+  content: "🢂";
+  margin-right: 6px;
+}
+
+.winner > h2:after {
+  content: "🡸";
+  margin-left: 6px;
+}
+
+/* Flickering animation */
+@keyframes flicker {
+  0%,
+  18%,
+  22%,
+  25%,
+  53%,
+  57%,
+  100% {
+    text-shadow: 0 0 4px #fff, 0 0 11px #fff, 0 0 19px #fff,
+      0 0 40px rgb(251, 65, 65), 0 0 80px rgb(251, 65, 65),
+      0 0 90px rgb(251, 65, 65), 0 0 100px rgb(251, 65, 65),
+      0 0 150px rgb(251, 65, 65);
+  }
+
+  20%,
+  24%,
+  55% {
+    text-shadow: 0 0 4px #fff, 0 0 11px #fff, 0 0 19px #fff,
+      0 0 40px rgb(251, 115, 115), 0 0 80px rgb(221, 75, 75),
+      0 0 90px rgb(243, 8, 8), 0 0 100px rgb(238, 107, 107),
+      0 0 150px rgb(246, 154, 154);
+  }
+}
+
 .container form textarea {
   resize: none;
 }
@@ -66,4 +110,23 @@ h2 {
   color: #fff;
   transition: background-color 1s ease-out;
   outline: 0;
+}
+
+a:link {
+  color: #d63031;
+}
+a:visited {
+  color: #c53030;
+}
+a:hover {
+  color: #ff0000;
+}
+a:active {
+  color: #ff0000;
+}
+
+@media (min-width: 700px) {
+  body {
+    padding: 0 10em;
+  }
 }
