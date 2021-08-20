@@ -37,6 +37,7 @@ h2 {
 .container form textarea {
   width: 100%;
   padding: 0.7em;
+  margin: 0.3em;
   border: none;
   background: none;
   outline: 0;
@@ -92,7 +93,7 @@ h2 {
   resize: none;
 }
 
-.container form button {
+.container form .btnCalculate {
   background: #b70e21;
   text-transform: uppercase;
   text-align: center;
@@ -100,14 +101,36 @@ h2 {
   border-radius: 1em;
 }
 
-.container form button:active {
+.container form .btnCalculate:active {
   background-color: #8e3e3e;
   transform: translateY(0.1em);
 }
 
-.container form button:hover {
+.container form .btnCalculate:hover {
   background: #d63031;
   color: #fff;
+  transition: background-color 1s ease-out;
+  outline: 0;
+}
+
+.container form .btnClean {
+  background: #fff;
+  color: #d63031;
+  text-transform: uppercase;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid #d63031;
+  border-radius: 1em;
+}
+
+.container form .btnClean:active {
+  background-color: #eeeeee;
+  transform: translateY(0.1em);
+}
+
+.container form .btnClean:hover {
+  background: #fff;
+  color: #d63031;
   transition: background-color 1s ease-out;
   outline: 0;
 }

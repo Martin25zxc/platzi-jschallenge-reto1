@@ -45,7 +45,11 @@
           </div>
 
           <div class="block segment">
-            <button id="btnCalcular" type="button">Calcular</button>
+            <button id="btnCalculate" class="btnCalculate" type="button">
+              Calcular
+            </button>
+
+            <button class="btnClean" type="button">Limpiar</button>
           </div>
 
           <div class="block segment" id="resultado">
@@ -63,12 +67,36 @@
     </footer>
     <script src="src/scripts/index.js"></script>
     <script>
+      function resetSegEntertainment() {
+        let arrElemsEnternmt = Array.from(
+          document.querySelectorAll(".segEntertainment")
+        );
+
+        if (arrElemsEnternmt != null) {
+          arrElemsEnternmt.forEach((el) => {
+            el.classList.remove("winner");
+          });
+        }
+      }
+
+      function resetEvent() {
+        // "Reseteo" los "titulos" de los servicio, retirando la class winner.
+        resetSegEntertainment();
+        // "Reseteo" el textarea
+        let elTextArea = document.querySelector("textarea[name='message']");
+        elTextArea.value = "";
+        // "Reseteo" los inputs
+        let arrInputs = document.querySelectorAll("input[type='number']");
+        arrInputs.forEach((el) => {
+          el.value = "";
+        });
+
+        document.querySelector(".container").scrollIntoView();
+      }
+
       function calculateEvent() {
         // "Reseteo" los "titulos" de los servicio, retirando la class winner.
-        let arrElemsEnternmt = document.querySelector(".segEntertainment");
-        if (arrElemsEnternmt !== null) {
-          arrElemsEnternmt.classList.remove("winner");
-        }
+        resetSegEntertainment();
 
         // Obtengo los valores de los inputs.
         let amountCinemas = document.querySelector(
@@ -107,9 +135,13 @@
         "DOMContentLoaded",
         function () {
           // Agrego los eventos a los botones.
-          let el = document.getElementById("btnCalcular");
-          el.addEventListener("click", calculateEvent, false);
+          let elbtnCalculate = document.getElementById("btnCalculate");
+          elbtnCalculate.addEventListener("click", calculateEvent, false);
 
+          let elbtnClean = document.querySelector(".btnClean");
+          elbtnClean.addEventListener("click", resetEvent, false);
+
+          // Se agregan los inputs de streaming.
           let divStreaming = document.querySelector("#streaming");
           streamingPlatforms.forEach((plataforma) => {
             divStreaming.innerHTML += ` <div class="segment">
@@ -132,6 +164,7 @@
                   event.key.charCodeAt(0) > 57) &&
                 event.key != "." &&
                 event.key != "," &&
+                event.key != "Backspace" &&
                 !event.ctrlKey
               ) {
                 event.preventDefault();
