@@ -22,6 +22,7 @@
               <input
                 placeholder="Entradas de cine compradas por mes"
                 type="number"
+                class="inp-ent"
                 min="0"
                 name="amountCinemas"
               />
@@ -31,6 +32,7 @@
               <input
                 placeholder="Precio de las entradas"
                 type="number"
+                class="inp-ent"
                 step=".01"
                 min="0"
                 name="priceCinemas"
@@ -109,18 +111,32 @@
           el.addEventListener("click", calculateEvent, false);
 
           let divStreaming = document.querySelector("#streaming");
-
           streamingPlatforms.forEach((plataforma) => {
             divStreaming.innerHTML += ` <div class="segment">
               <label>${plataforma}</label>
               <input
-                class="streamingElement"
+                class="streamingElement inp-ent"
                 type="number"
-                min="0"
                 step=".01"
+                min="0"
                 placeholder="Precio"
               />
             </div>`;
+          });
+
+          // Configuro el evento al presionar las teclas sobre los inputs. No ser permiten no numéricos.
+          document.addEventListener("keydown", (event) => {
+            if (event.target.className.includes("inp-ent")) {
+              if (
+                (event.key.charCodeAt(0) < 48 ||
+                  event.key.charCodeAt(0) > 57) &&
+                event.key != "." &&
+                event.key != "," &&
+                !event.ctrlKey
+              ) {
+                event.preventDefault();
+              }
+            }
           });
         },
         false
